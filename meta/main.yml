@@ -1,0 +1,14 @@
+galaxy_info:
+  author: Martin Milata
+  description: Simple Graphite and Carbon deployment.
+  company: base48.cz
+  license: MIT
+  platforms:
+  - name: EL
+    versions:
+    - 7
+  galaxy_tags:
+  - graphite
+  - carbon
+
+dependencies: []

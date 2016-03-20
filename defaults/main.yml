@@ -1,0 +1,20 @@
+---
+#graphite_vhost: graphite.example.com
+#graphite_secret_csrf_key: eeLahch5Ahqueih8chuthi9A
+
+graphite_line_interface: 0.0.0.0
+graphite_line_port: 2003
+graphite_udp_enabled: false
+graphite_udp_interface: 0.0.0.0
+graphite_udp_port: 2003
+graphite_pickle_interface: 0.0.0.0
+graphite_pickle_port: 2004
+
+graphite_manage_storage_schemas: true
+graphite_storage_schemas:
+- name: carbon
+  pattern: ^carbon\.
+  retentions: 60:90d
+- name: default_1min_for_1day
+  pattern: .*
+  retentions: 60s:1d

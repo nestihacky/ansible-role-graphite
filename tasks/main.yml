@@ -1,0 +1,43 @@
+---
+- name: install needed packages
+  yum: pkg={{ item }} state=present
+  with_items:
+  - graphite-web
+  - python-carbon
+  - libsemanage-python
+  - mod_ssl
+
+- name: graphite-web config file
+  template: src=local_settings.py dest=/etc/graphite-web/local_settings.py owner=root group=root mode=644
+  notify:
+  - restart httpd
+
+- name: graphite-web apache config
+  template: src=graphite-web.conf dest=/etc/httpd/conf.d/graphite-web.conf owner=root group=root mode=644
+  notify:
+  - restart httpd
+
+- name: carbon config file
+  template: src=carbon.conf.j2 dest=/etc/carbon/carbon.conf owner=root group=root mode=644
+  notify:
+  - restart carbon-cache
+
+- name: carbon storage schemas
+  template: src=storage-schemas.conf.j2 dest=/etc/carbon/storage-schemas.conf owner=root group=root mode=644
+  when: graphite_manage_storage_schemas
+
+- name: set carbon-cache to run on boot
+  service: name=carbon-cache enabled=yes state=running
+
+- name: initialize graphite-web database
+  command: /usr/bin/graphite-manage syncdb --noinput
+  args:
+    creates: /var/lib/graphite-web/graphite.db
+
+- name: build graphite  index
+  command: /usr/bin/graphite-build-index
+  args:
+    creates: /var/lib/graphite-web/index
+
+- name: chown the sqlite database to apache.apache
+  file: path=/var/lib/graphite-web/ owner=apache group=apache recurse=yes
