@@ -115,8 +115,8 @@ LOG_LISTENER_CONNECTIONS = True
 # Set this to True to revert to the old-fashioned insecure unpickler.
 USE_INSECURE_UNPICKLER = False
 
-CACHE_QUERY_INTERFACE = 0.0.0.0
-CACHE_QUERY_PORT = 7002
+CACHE_QUERY_INTERFACE = {{ graphite_cache_query_interface }}
+CACHE_QUERY_PORT = {{ graphite_cache_query_port }}
 
 # Set the TCP backlog for the listen socket created by the cache query
 # listener. You shouldn't change this unless you know what you're doing.

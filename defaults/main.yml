@@ -9,6 +9,8 @@ graphite_udp_interface: 0.0.0.0
 graphite_udp_port: 2003
 graphite_pickle_interface: 0.0.0.0
 graphite_pickle_port: 2004
+graphite_cache_query_interface: 0.0.0.0
+graphite_cache_query_port: 7002
 
 graphite_manage_storage_schemas: true
 graphite_storage_schemas:

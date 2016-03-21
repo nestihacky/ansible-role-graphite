@@ -20,6 +20,8 @@ The role allows you to set on which interfaces and ports the Carbon daemon liste
     graphite_udp_port: 2003
     graphite_pickle_interface: 0.0.0.0
     graphite_pickle_port: 2004
+    graphite_cache_query_interface: 0.0.0.0
+    graphite_cache_query_port: 7002
 
 You can optionally configure the Carbon storage schemas using this playbook:
 
