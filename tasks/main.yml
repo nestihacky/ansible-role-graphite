@@ -17,6 +17,9 @@
   notify:
   - restart httpd
 
+- name: set apache to run on boot
+  service: name=httpd enabled=yes
+
 - name: carbon config file
   template: src=carbon.conf.j2 dest=/etc/carbon/carbon.conf owner=root group=root mode=644
   notify:
