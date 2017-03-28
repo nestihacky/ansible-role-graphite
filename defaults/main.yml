@@ -1,6 +1,20 @@
 ---
-#graphite_vhost: graphite.example.com
+#graphite_domain: graphite.example.com
 #graphite_secret_csrf_key: eeLahch5Ahqueih8chuthi9A
+
+# uncomment to enable ssl vhost
+#graphite_ssl_listen: 14446
+
+#graphite_ssl_cert: "/etc/letsencrypt/live/{{ graphite_domain }}/cert.pem"
+#graphite_ssl_key: "/etc/letsencrypt/live/{{ graphite_domain }}/privkey.pem"
+#graphite_ssl_chain: "/etc/letsencrypt/live/{{ graphite_domain }}/chain.pem"
+
+devel_ssl_cert: /etc/pki/tls/certs/localhost.crt
+devel_ssl_key: /etc/pki/tls/private/localhost.key
+
+graphite_ssl_cert: "{{ devel_ssl_cert }}"
+graphite_ssl_key: "{{ devel_ssl_key }}"
+graphite_ssl_chain: "{{ devel_ssl_key }}"
 
 graphite_line_interface: 0.0.0.0
 graphite_line_port: 2003
