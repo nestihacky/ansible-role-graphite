@@ -7,13 +7,31 @@
   - libsemanage-python
   - mod_ssl
 
+- seport:
+    ports: "{{ graphite_ssl_listen }}"
+    proto: tcp
+    setype: http_port_t
+    state: present
+  when: common_selinux
+
 - name: graphite-web config file
   template: src=local_settings.py dest=/etc/graphite-web/local_settings.py owner=root group=root mode=644
   notify:
   - restart httpd
 
+- name: create data directory
+  file:
+    path: /etc/httpd/conf.d/graphite/
+    state: directory
+
 - name: graphite-web apache config
-  template: src=graphite-web.conf dest=/etc/httpd/conf.d/graphite-web.conf owner=root group=root mode=644
+  template: src=graphite-web.conf dest=/etc/httpd/conf.d/graphite/graphite-web.conf owner=root group=root mode=644
+  notify:
+  - restart httpd
+
+- name: graphite-web apache ssl config
+  template: src=graphite-ssl.conf dest=/etc/httpd/conf.d/graphite-ssl.conf owner=root group=root mode=644
+  when: graphite_ssl_listen is defined
   notify:
   - restart httpd
 

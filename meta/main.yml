@@ -11,4 +11,6 @@ galaxy_info:
   - graphite
   - carbon
 
-dependencies: []
+dependencies:
+   - role: nestihacky.common
+   - role: nestihacky.apache
